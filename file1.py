@@ -11,7 +11,7 @@ player_rect = pg.Rect(0, 0, player_width, player_height)
 #obstacle properties
 obstacle_width, obstacle_height = 50, 50
 obstacle_speed = 0.1
-obstacle_rect = pg.FRect(random.randint(0, 400), 0 , obstacle_width, obstacle_height)
+obstacle_rect = pg.Rect(random.randint(0, 400), 0 , obstacle_width, obstacle_height)
 
 #score properties
 score = 0
@@ -27,10 +27,17 @@ while running:
     #rendering your player
     pg.draw.rect(screen, (255, 0, 0), (player_x, player_y, player_width, player_height))
     keys = pg.key.get_pressed()
-    if keys[pg.K_LEFT]:
-        player_x -= player_speed
-    if keys[pg.K_RIGHT]:
-        player_x += player_speed
+    keys = pg.key.get_pressed()
+    if player_x > 0 and player_x < 541:
+        if keys[pg.K_LEFT]:
+            player_x -= player_speed
+        if keys[pg.K_RIGHT]:
+            player_x += player_speed
+
+    if player_x >= 541:
+        player_x -= 1
+    elif player_x <= 0:
+        player_x += 1
 
     #moving obstacle downwards
     obstacle_rect.y += obstacle_speed
